@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Counter app</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f4f8;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 500px;
+      }
+
+      .wrapper {
+        text-align: center;
+        background: #ffffff;
+        padding: 30px 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      }
+
+      h1 {
+        font-size: 2rem;
+        margin-bottom: 20px;
+        color: #333;
+      }
+
+      .counter-display {
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: #444;
+        margin: 20px 0;
+      }
+
+      .button-group {
+        display: flex;
+        gap: 10px;
+      }
+
+      button {
+        padding: 10px 20px;
+        font-size: 1rem;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+
+      #start {
+        background-color: #28a745;
+      }
+
+      #start:hover {
+        background-color: #218838;
+      }
+
+      #stop {
+        background-color: #dc3545;
+      }
+
+      #stop:hover {
+        background-color: #c82333;
+      }
+
+      #reset {
+        background-color: #007bff;
+      }
+
+      #reset:hover {
+        background-color: #0056b3;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+      <h1>Counter App</h1>
+      <p class="counter-display">
+        <span id="seconds">00</span>:<span id="milliseconds">00</span>
+      </p>
+      <div class="button-group">
+        <button id="start">Start</button>
+        <button id="stop">Stop</button>
+        <button id="reset">Reset</button>
+      </div>
+    </div>
+    <script>
+      window.onload = function () {
+        let seconds = 0;
+        let milliseconds = 0;
+
+        const appendMilliseconds = document.getElementById("milliseconds");
+        const appendSeconds = document.getElementById("seconds");
+
+        const buttonStart = document.getElementById("start");
+        const buttonStop = document.getElementById("stop");
+        const buttonReset = document.getElementById("reset");
+
+        let interval;
+
+        buttonStart.onclick = function () {
+          clearInterval(interval);
+          interval = setInterval(startTimer, 10);
+        };
+
+        buttonStop.onclick = function () {
+          clearInterval(interval);
+        };
+
+        buttonReset.onclick = function () {
+          clearInterval(interval);
+          milliseconds = 0;
+          seconds = 0;
+          appendMilliseconds.innerHTML = "00";
+          appendSeconds.innerHTML = "00";
+        };
+
+        function startTimer() {
+          milliseconds++;
+          if (milliseconds <= 9) {
+            appendMilliseconds.innerHTML = "0" + milliseconds;
+          } else {
+            appendMilliseconds.innerHTML = milliseconds;
+          }
+
+          if (milliseconds > 99) {
+            seconds++;
+            appendSeconds.innerHTML = seconds <= 9 ? "0" + seconds : seconds;
+            milliseconds = 0;
+            appendMilliseconds.innerHTML = "00";
+          }
+        }
+      };
+    </script>
+  </body>
+</html>
